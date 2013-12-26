@@ -79,3 +79,21 @@ type Test() =
         default this.F03OutOfBounds () =
             Assert.AreEqual(None, element_at [1; 2; 3; 4] 5)
         
+        [<Test>]
+        abstract F04Empty : unit -> unit
+        [<Test>]
+        default this.F04Empty () =
+            Assert.AreEqual(0, num_of_elements [])
+
+        [<Test>]
+        abstract F04One : unit -> unit
+        [<Test>]
+        default this.F04One () =
+            Assert.AreEqual(1, num_of_elements [1])
+        
+        [<Test>]
+        abstract F04Five: unit -> unit
+        [<Test>]
+        default this.F04Five () =
+            Assert.AreEqual(5, num_of_elements [1; 2; 3; 4; 5])
+        

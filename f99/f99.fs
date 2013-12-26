@@ -21,3 +21,14 @@ let rec element_at input n =
     | ([], _)        -> None
     | (head :: _, 0) -> Some(head)
     | (_ :: tail, n) -> element_at tail (n - 1)
+    
+// F04 (*) Find the number of elements of a list.
+let num_of_elements input =
+    let rec iter input count =
+        match input with 
+        | []        -> count
+        | _ :: tail -> iter tail (count + 1)
+    
+    iter input 0
+ 
+ 
