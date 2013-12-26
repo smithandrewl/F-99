@@ -31,4 +31,12 @@ let num_of_elements input =
     
     iter input 0
  
+// P05 (*) Reverse a list.
+let rev input =
+    let rec iter input acc =
+        match input with
+        | []           -> acc
+        | head :: tail -> iter tail (head :: acc)   
+    
+    iter input []
  

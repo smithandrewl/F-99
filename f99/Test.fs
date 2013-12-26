@@ -97,3 +97,21 @@ type Test() =
         default this.F04Five () =
             Assert.AreEqual(5, num_of_elements [1; 2; 3; 4; 5])
         
+        [<Test>]
+        abstract F05Empty: unit -> unit
+        [<Test>]
+        default this.F05Empty () =
+            Assert.AreEqual([], rev [])
+        
+        [<Test>]
+        abstract F05One: unit -> unit
+        [<Test>]
+        default this.F05One () =
+            Assert.AreEqual([2], rev [2])
+            
+        [<Test>]
+        abstract F05Three: unit -> unit
+        [<Test>]
+        default this.F05Three () =
+            Assert.AreEqual([3; 2; 1], rev [1; 2; 3])
+        
