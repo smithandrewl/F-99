@@ -12,3 +12,9 @@ let rec next_to_last input =
     | [head]         -> None
     | head :: [last] -> Some(head)
     | head :: tail   -> next_to_last tail
+
+let rec element_at input n =
+    match (input, n) with
+    | ([], _)        -> None
+    | (head :: _, 0) -> Some(head)
+    | (_ :: tail, n) -> element_at tail (n - 1)

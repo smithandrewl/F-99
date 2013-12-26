@@ -55,3 +55,27 @@ type Test() =
         default this.F02MultipleElements () =
             Assert.AreEqual(Some(4), next_to_last [1; 2; 3; 4; 5])
         
+        [<Test>]
+        abstract F03Empty : unit -> unit
+        [<Test>]
+        default this.F03Empty () =
+            Assert.AreEqual(None, element_at [] 0)
+        
+        [<Test>]
+        abstract F03OneElement : unit -> unit
+        [<Test>]
+        default this.F03OneElement () =
+            Assert.AreEqual(Some(1), element_at [1] 0)
+            
+        [<Test>]
+        abstract F03FiveElements : unit -> unit
+        [<Test>]
+        default this.F03FiveElements () =
+            Assert.AreEqual(Some(4), element_at [1; 2; 3; 4; 5] 3)
+        
+        [<Test>]
+        abstract F03OutOfBounds : unit -> unit
+        [<Test>]
+        default this.F03OutOfBounds () =
+            Assert.AreEqual(None, element_at [1; 2; 3; 4] 5)
+        
