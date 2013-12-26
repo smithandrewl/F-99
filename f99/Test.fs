@@ -25,3 +25,33 @@ type Test() =
         [<Test>]
         default this.F01Empty () =
             Assert.AreEqual(None, my_last [])
+        
+        
+        [<Test>]
+        abstract F02Empty : unit -> unit
+        
+        [<Test>]
+        default this.F02Empty () =
+            Assert.AreEqual(None, next_to_last [])
+        
+        [<Test>]
+        abstract F02OneElement : unit -> unit
+        
+        [<Test>]
+        default this.F02OneElement () =
+            Assert.AreEqual(None, next_to_last ['a'])
+        
+        
+        [<Test>]
+        abstract F02TwoElements : unit -> unit
+        
+        [<Test>]
+        default this.F02TwoElements () =
+            Assert.AreEqual(Some(1), next_to_last [1; 2])
+        
+        [<Test>]
+        abstract F02MultipleElements : unit -> unit
+        [<Test>]
+        default this.F02MultipleElements () =
+            Assert.AreEqual(Some(4), next_to_last [1; 2; 3; 4; 5])
+        
