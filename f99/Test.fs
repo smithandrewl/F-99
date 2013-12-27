@@ -165,3 +165,11 @@ type Test() =
         default this.F08ManyDup () =
             Assert.AreEqual(['a'; 'b'; 'c'; 'a'; 'd'; 'e'], remove_duplicates ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e'])
         
+        [<Test>]
+        abstract F09Pack : unit -> unit
+        [<Test>]
+        default this.F09Pack () =
+            let expected = [['a'; 'a'; 'a'; 'a']; ['b']; ['c'; 'c']; ['a'; 'a']; ['d']; ['e'; 'e'; 'e'; 'e']]
+            let input    = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
+            
+            Assert.AreEqual(expected, pack input)

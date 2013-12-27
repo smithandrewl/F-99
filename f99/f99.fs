@@ -59,3 +59,15 @@ let remove_duplicates input =
                 iter tail acc
     
     iter input [] 
+
+// P09 (**) Pack consecutive duplicates of list elements into sublists.
+let pack input =
+    let rec pack_iter (input, acc: 'a list list, sublist_acc: 'a list) =
+        match (input, sublist_acc) with
+        | ([], [])                                          -> acc
+        | ([], sublist)                                     -> (sublist_acc :: acc)
+        | (head :: tail, [])                                -> pack_iter(tail, acc, ([head]))
+        | (head :: tail, sublist) when head <> sublist.Head -> pack_iter(tail, (sublist :: acc), [head])
+        | (head :: tail, sublist)                           -> pack_iter(tail, acc, (head :: sublist))
+                 
+    rev (pack_iter (input, [], []))
