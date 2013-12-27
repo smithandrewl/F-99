@@ -1,13 +1,13 @@
 module f99
 
-// F01 (*) Find the last element of a list.
+// P01 (*) Find the last element of a list.
 let rec my_last input = 
     match input with 
     | []           -> None
     | [head]       -> Some(head)
     | head :: tail -> my_last tail
 
-// F02 (*) Find the last but one element of a list.
+// P02 (*) Find the last but one element of a list.
 let rec next_to_last input =
     match input with
     | []             -> None
@@ -15,14 +15,14 @@ let rec next_to_last input =
     | head :: [last] -> Some(head)
     | head :: tail   -> next_to_last tail
 
-// F03 (*) Find the K'th element of a list.
+// P03 (*) Find the K'th element of a list.
 let rec element_at input n =
     match (input, n) with
     | ([], _)        -> None
     | (head :: _, 0) -> Some(head)
     | (_ :: tail, n) -> element_at tail (n - 1)
     
-// F04 (*) Find the number of elements of a list.
+// P04 (*) Find the number of elements of a list.
 let num_of_elements input =
     let rec iter input count =
         match input with 
@@ -39,4 +39,23 @@ let rev input =
         | head :: tail -> iter tail (head :: acc)   
     
     iter input []
- 
+    
+ // P06 (*) Find out whether a list is a palindrome.
+let is_pal input =
+    rev input = input
+
+ // P07 (**) Flatten a nested list structure. 
+ // F# does not support lists of multiple types
+
+// P08 (**) Eliminate consecutive duplicates of list elements.
+let remove_duplicates input =
+    let rec iter input acc: 'a list = 
+        match input with
+        | [] -> rev acc
+        | head :: tail ->
+            if (acc.IsEmpty) || (head <> acc.Head) then
+                iter tail (head :: acc)
+            else
+                iter tail acc
+    
+    iter input [] 

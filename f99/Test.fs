@@ -115,3 +115,53 @@ type Test() =
         default this.F05Three () =
             Assert.AreEqual([3; 2; 1], rev [1; 2; 3])
         
+        [<Test>]
+        abstract F06Empty : unit -> unit
+        [<Test>]
+        default this.F06Empty () =
+            Assert.AreEqual(true, is_pal [])
+        
+        [<Test>]
+        abstract F06OneItem : unit -> unit
+        [<Test>]
+        default this.F06OneItem () =
+            Assert.AreEqual(true, is_pal ['a'])
+        
+        [<Test>]
+        abstract F06Pal : unit -> unit
+        [<Test>]
+        default this.F06Pal () =
+            Assert.AreEqual(true, is_pal ['x'; 'a'; 'm'; 'a'; 'x'])
+        
+        [<Test>]
+        abstract F06NonPal: unit -> unit
+        [<Test>]
+        default this.F06NonPal () =
+            Assert.AreEqual(false, is_pal ['a'; 'b'; 'c'])
+        
+            
+        [<Test>]
+        abstract F08Empty: unit -> unit
+        [<Test>]
+        default this.F08Empty () =
+            Assert.AreEqual([], remove_duplicates [])
+        
+        
+        [<Test>]
+        abstract F08One: unit -> unit
+        [<Test>]
+        default this.F08One () = 
+            Assert.AreEqual([1], remove_duplicates [1])
+            
+        [<Test>]
+        abstract F08TwoDup : unit -> unit
+        [<Test>]
+        default this.F08TwoDup () =
+            Assert.AreEqual([1], remove_duplicates [1; 1])
+        
+        [<Test>]
+        abstract F08ManyDup : unit -> unit
+        [<Test>]
+        default this.F08ManyDup () =
+            Assert.AreEqual(['a'; 'b'; 'c'; 'a'; 'd'; 'e'], remove_duplicates ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e'])
+        
