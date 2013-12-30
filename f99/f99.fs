@@ -42,7 +42,7 @@ let rev input =
     
  // P06 (*) Find out whether a list is a palindrome.
 let is_pal input =
-    rev input = input
+    List.rev input = input
 
  // P07 (**) Flatten a nested list structure. 
  // F# does not support lists of multiple types
@@ -51,7 +51,7 @@ let is_pal input =
 let remove_duplicates input =
     let rec iter input acc: 'a list = 
         match input with
-        | [] -> rev acc
+        | [] -> List.rev acc
         | head :: tail ->
             if (acc.IsEmpty) || (head <> acc.Head) then
                 iter tail (head :: acc)
@@ -62,6 +62,7 @@ let remove_duplicates input =
 
 // P09 (**) Pack consecutive duplicates of list elements into sublists.
 let pack input =
+
     let rec pack_iter (input, acc: 'a list list, sublist_acc: 'a list) =
         match (input, sublist_acc) with
         | ([], [])                                          -> acc
@@ -70,25 +71,13 @@ let pack input =
         | (head :: tail, sublist) when head <> sublist.Head -> pack_iter(tail, (sublist :: acc), [head])
         | (head :: tail, sublist)                           -> pack_iter(tail, acc, (head :: sublist))
                  
-    rev (pack_iter (input, [], []))
+    List.rev (pack_iter (input, [], []))
 
 // P10 (*) Run­length encoding of a list.
 let encode (input: 'a list) =
-    let packed = pack input
+    let grouped = pack input
     
-    match packed with
-    | []     -> []
-    | [[]]   -> []
-    | _      -> 
-        let rec iter (chunks: 'a list list,  acc:(int * 'a) list) =
-            match chunks with
-            | [] -> acc
-            | head :: tail -> 
-                match head with
-                | [ ] -> iter (tail, acc)
-                | _   -> iter (tail, (num_of_elements head, head.Head) :: acc)
-        
-        rev (iter (pack input, []))
+    List.map (fun x -> (List.length x, List.head x)) grouped
 
 // P12 (**) Decode a run­length encoded list.
 let decode items =
@@ -100,9 +89,5 @@ let decode items =
         
         iter item []
     
-    let rec iter items acc =
-        match items with
-        | []           -> acc
-        | head :: tail -> iter tail ((expand head) :: acc)
-        
-    rev (iter items [])            
+    List.map (fun item -> expand item) items
+    
