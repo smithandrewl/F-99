@@ -5,17 +5,22 @@ open f99
 
 [<TestFixture>]
 type Test() = 
-        let OneToFive  = [1 .. 5]
-        let OneToFour  = [1 .. 4]
-        let OneToThree = [1 .. 3]
-        let OneToTwo   = [1 .. 2]
+        let OneToFive   = [1 .. 5]
+        let OneToFour   = [1 .. 4]
+        let OneToThree  = [1 .. 3]
+        let OneToTwo    = [1 .. 2]
+                
+        let ABCD   = ['a' .. 'd']
+        let XAMAX  = ['x'; 'a'; 'm'; 'a'; 'x']
+     
+        let Dups = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 
+                    'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
         
-        
-        let ABCD  = ['a' .. 'd']
-        let XAMAX = ['x'; 'a'; 'm'; 'a'; 'x']
-        
-        let Dups  = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 
-                     'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
+        let DupsPacked  = [['a'; 'a'; 'a'; 'a']; ['b']; ['c'; 'c']; 
+                           ['a'; 'a']; ['d']; ['e'; 'e'; 'e'; 'e']]
+                            
+        let DupsEncoded = [(4, 'a'); (1, 'b'); (2, 'c');
+                           (2, 'a'); (1, 'd'); (4, 'e')]
         
         [<Test>]
         abstract F01Last : unit -> unit
@@ -46,7 +51,6 @@ type Test() =
         [<Test>]
         default this.F02OneElement () =
             Assert.AreEqual(None, next_to_last ['a'])
-        
         
         [<Test>]
         abstract F02TwoElements : unit -> unit
@@ -174,20 +178,13 @@ type Test() =
         abstract F09Pack : unit -> unit
         [<Test>]
         default this.F09Pack () =
-            let expected = [['a'; 'a'; 'a'; 'a']; ['b']; ['c'; 'c']; 
-                            ['a'; 'a']; ['d']; ['e'; 'e'; 'e'; 'e']]
-            
-            Assert.AreEqual(expected, pack Dups)
+            Assert.AreEqual(DupsPacked, pack Dups)
         
         [<Test>]
         abstract F10Encode: unit -> unit
         [<Test>]
         default this.F10Encode () =
-        
-            let expected = [(4, 'a'); (1, 'b'); (2, 'c'); 
-                            (2, 'a'); (1, 'd'); (4, 'e')]
-            
-            Assert.AreEqual(expected, encode Dups)
+            Assert.AreEqual(DupsEncoded, encode Dups)
         
         [<Test>]
         abstract F10EncodeOneGroup: unit -> unit
@@ -200,3 +197,15 @@ type Test() =
         [<Test>]
         default this.F10EncodeEmpty () =
             Assert.AreEqual(true, List.isEmpty (encode []))
+        
+        [<Test>]
+        abstract F12DecodeEmpty: unit -> unit
+        [<Test>]
+        default this.F12DecodeEmpty () = 
+            Assert.AreEqual(true, List.isEmpty(decode []))
+        
+        [<Test>]
+        abstract F12DecodeDups: unit -> unit
+        [<Test>]
+        default this.F12DecodeDups () =
+            Assert.AreEqual(DupsPacked, decode DupsEncoded)

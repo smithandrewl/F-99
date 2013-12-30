@@ -89,3 +89,20 @@ let encode (input: 'a list) =
                 | _   -> iter (tail, (num_of_elements head, head.Head) :: acc)
         
         rev (iter (pack input, []))
+
+// P12 (**) Decode a run­length encoded list.
+let decode items =
+    let expand item =
+        let rec iter item acc =
+            match item with
+            | (0, _)        -> acc
+            | (times, char) -> iter (times - 1, char) (char :: acc) 
+        
+        iter item []
+    
+    let rec iter items acc =
+        match items with
+        | []           -> acc
+        | head :: tail -> iter tail ((expand head) :: acc)
+        
+    rev (iter items [])            
