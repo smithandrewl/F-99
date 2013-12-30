@@ -10,8 +10,9 @@ type Test() =
         abstract F01Last : unit -> unit
         [<Test>]
         default this.F01Last () =
-            let input = ['a'; 'b'; 'c'; 'd']
+            let input    = ['a'; 'b'; 'c'; 'd']
             let expected = Some('d')
+            
             Assert.AreEqual(expected, my_last input)
         
         [<Test>]
@@ -26,17 +27,14 @@ type Test() =
         default this.F01Empty () =
             Assert.AreEqual(None, my_last [])
         
-        
         [<Test>]
-        abstract F02Empty : unit -> unit
-        
+        abstract F02Empty : unit -> unit        
         [<Test>]
         default this.F02Empty () =
             Assert.AreEqual(None, next_to_last [])
         
         [<Test>]
         abstract F02OneElement : unit -> unit
-        
         [<Test>]
         default this.F02OneElement () =
             Assert.AreEqual(None, next_to_last ['a'])
@@ -44,7 +42,6 @@ type Test() =
         
         [<Test>]
         abstract F02TwoElements : unit -> unit
-        
         [<Test>]
         default this.F02TwoElements () =
             Assert.AreEqual(Some(1), next_to_last [1; 2])
@@ -173,3 +170,25 @@ type Test() =
             let input    = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
             
             Assert.AreEqual(expected, pack input)
+        
+        [<Test>]
+        abstract F10Encode: unit -> unit
+        [<Test>]
+        default this.F10Encode () =
+            let input    = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
+        
+            let expected = [(4, 'a'); (1, 'b'); (2, 'c'); (2, 'a'); (1, 'd'); (4, 'e')]
+            
+            Assert.AreEqual(expected, encode input)
+        
+        [<Test>]
+        abstract F10EncodeOneGroup: unit -> unit
+        [<Test>]
+        default this.F10EncodeOneGroup () =
+            Assert.AreEqual([(5, 'a')], encode ['a'; 'a'; 'a'; 'a'; 'a'])
+            
+        [<Test>]
+        abstract F10EncodeEmpty: unit -> unit
+        [<Test>]
+        default this.F10EncodeEmpty () =
+            Assert.AreEqual(true, List.isEmpty (encode []))

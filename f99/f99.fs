@@ -71,3 +71,21 @@ let pack input =
         | (head :: tail, sublist)                           -> pack_iter(tail, acc, (head :: sublist))
                  
     rev (pack_iter (input, [], []))
+
+// P10 (*) Run­length encoding of a list.
+let encode (input: 'a list) =
+    let packed = pack input
+    
+    match packed with
+    | []     -> []
+    | [[]]   -> []
+    | _      -> 
+        let rec iter (chunks: 'a list list,  acc:(int * 'a) list) =
+            match chunks with
+            | [] -> acc
+            | head :: tail -> 
+                match head with
+                | [ ] -> iter (tail, acc)
+                | _   -> iter (tail, (num_of_elements head, head.Head) :: acc)
+        
+        rev (iter (pack input, []))
