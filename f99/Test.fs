@@ -209,3 +209,23 @@ type Test() =
         [<Test>]
         default this.F12DecodeDups () =
             Assert.AreEqual(DupsPacked, decode DupsEncoded)
+            
+        
+        [<Test>]
+        abstract F13EncodeDirect: unit -> unit
+        [<Test>]
+        default this.F13EncodeDirect () =
+            Assert.AreEqual(DupsEncoded, encodeDirect Dups)
+        
+        [<Test>]
+        abstract F13EncodeDirectOneGroup: unit -> unit
+        [<Test>]
+        default this.F13EncodeDirectOneGroup () =
+            Assert.AreEqual([(5, 'a')], encodeDirect ['a'; 'a'; 'a'; 'a'; 'a'])
+            
+        [<Test>]
+        abstract F13EncodeDirectEmpty: unit -> unit
+        [<Test>]
+        default this.F13EncodeDirectEmpty () =
+            Assert.AreEqual(true, List.isEmpty (encodeDirect []))
+        

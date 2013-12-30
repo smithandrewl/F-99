@@ -90,4 +90,15 @@ let decode items =
         iter item []
     
     List.map (fun item -> expand item) items
+
+// P13 (**) Run­length encoding of a list (direct solution)
+let encodeDirect (input: 'a list) =
+    let rec iter (input: 'a list, current: (int * 'a), acc: (int * 'a) list) =
+       match (input, current) with
+       | ([], current)                                -> current :: acc
+       | (head :: tail, (count, chr)) when chr = head -> iter (tail, (count + 1, chr), acc) 
+       | (head :: tail, current)                      -> iter (tail, (1, head), current :: acc) 
     
+    match input with
+    | []           -> []
+    | head :: tail -> List.rev (iter (List.tail input, (1, List.head input), []))
