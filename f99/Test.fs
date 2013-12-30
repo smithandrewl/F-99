@@ -1,4 +1,3 @@
-
 namespace f99tests
 open System
 open NUnit.Framework
@@ -6,14 +5,23 @@ open f99
 
 [<TestFixture>]
 type Test() = 
+        let OneToFive  = [1 .. 5]
+        let OneToFour  = [1 .. 4]
+        let OneToThree = [1 .. 3]
+        let OneToTwo   = [1 .. 2]
+        
+        
+        let ABCD  = ['a' .. 'd']
+        let XAMAX = ['x'; 'a'; 'm'; 'a'; 'x']
+        
+        let Dups  = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 
+                     'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
+        
         [<Test>]
         abstract F01Last : unit -> unit
         [<Test>]
         default this.F01Last () =
-            let input    = ['a'; 'b'; 'c'; 'd']
-            let expected = Some('d')
-            
-            Assert.AreEqual(expected, my_last input)
+            Assert.AreEqual(Some('d'), my_last ABCD)
         
         [<Test>]
         abstract F01One : unit -> unit
@@ -44,13 +52,13 @@ type Test() =
         abstract F02TwoElements : unit -> unit
         [<Test>]
         default this.F02TwoElements () =
-            Assert.AreEqual(Some(1), next_to_last [1; 2])
+            Assert.AreEqual(Some(1), next_to_last OneToTwo)
         
         [<Test>]
         abstract F02MultipleElements : unit -> unit
         [<Test>]
         default this.F02MultipleElements () =
-            Assert.AreEqual(Some(4), next_to_last [1; 2; 3; 4; 5])
+            Assert.AreEqual(Some(4), next_to_last OneToFive)
         
         [<Test>]
         abstract F03Empty : unit -> unit
@@ -68,13 +76,13 @@ type Test() =
         abstract F03FiveElements : unit -> unit
         [<Test>]
         default this.F03FiveElements () =
-            Assert.AreEqual(Some(4), element_at [1; 2; 3; 4; 5] 3)
+            Assert.AreEqual(Some(4), element_at OneToFive 3)
         
         [<Test>]
         abstract F03OutOfBounds : unit -> unit
         [<Test>]
         default this.F03OutOfBounds () =
-            Assert.AreEqual(None, element_at [1; 2; 3; 4] 5)
+            Assert.AreEqual(None, element_at OneToFour 5)
         
         [<Test>]
         abstract F04Empty : unit -> unit
@@ -92,7 +100,7 @@ type Test() =
         abstract F04Five: unit -> unit
         [<Test>]
         default this.F04Five () =
-            Assert.AreEqual(5, num_of_elements [1; 2; 3; 4; 5])
+            Assert.AreEqual(5, num_of_elements OneToFive)
         
         [<Test>]
         abstract F05Empty: unit -> unit
@@ -110,7 +118,7 @@ type Test() =
         abstract F05Three: unit -> unit
         [<Test>]
         default this.F05Three () =
-            Assert.AreEqual([3; 2; 1], rev [1; 2; 3])
+            Assert.AreEqual([3; 2; 1], rev OneToThree)
         
         [<Test>]
         abstract F06Empty : unit -> unit
@@ -128,13 +136,13 @@ type Test() =
         abstract F06Pal : unit -> unit
         [<Test>]
         default this.F06Pal () =
-            Assert.AreEqual(true, is_pal ['x'; 'a'; 'm'; 'a'; 'x'])
+            Assert.AreEqual(true, is_pal XAMAX)
         
         [<Test>]
         abstract F06NonPal: unit -> unit
         [<Test>]
         default this.F06NonPal () =
-            Assert.AreEqual(false, is_pal ['a'; 'b'; 'c'])
+            Assert.AreEqual(false, is_pal ['a' .. 'c'])
         
             
         [<Test>]
@@ -160,26 +168,26 @@ type Test() =
         abstract F08ManyDup : unit -> unit
         [<Test>]
         default this.F08ManyDup () =
-            Assert.AreEqual(['a'; 'b'; 'c'; 'a'; 'd'; 'e'], remove_duplicates ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e'])
+            Assert.AreEqual(['a'; 'b'; 'c'; 'a'; 'd'; 'e'], remove_duplicates Dups)
         
         [<Test>]
         abstract F09Pack : unit -> unit
         [<Test>]
         default this.F09Pack () =
-            let expected = [['a'; 'a'; 'a'; 'a']; ['b']; ['c'; 'c']; ['a'; 'a']; ['d']; ['e'; 'e'; 'e'; 'e']]
-            let input    = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
+            let expected = [['a'; 'a'; 'a'; 'a']; ['b']; ['c'; 'c']; 
+                            ['a'; 'a']; ['d']; ['e'; 'e'; 'e'; 'e']]
             
-            Assert.AreEqual(expected, pack input)
+            Assert.AreEqual(expected, pack Dups)
         
         [<Test>]
         abstract F10Encode: unit -> unit
         [<Test>]
         default this.F10Encode () =
-            let input    = ['a'; 'a'; 'a'; 'a'; 'b'; 'c'; 'c'; 'a'; 'a'; 'd'; 'e'; 'e'; 'e'; 'e']
         
-            let expected = [(4, 'a'); (1, 'b'); (2, 'c'); (2, 'a'); (1, 'd'); (4, 'e')]
+            let expected = [(4, 'a'); (1, 'b'); (2, 'c'); 
+                            (2, 'a'); (1, 'd'); (4, 'e')]
             
-            Assert.AreEqual(expected, encode input)
+            Assert.AreEqual(expected, encode Dups)
         
         [<Test>]
         abstract F10EncodeOneGroup: unit -> unit
