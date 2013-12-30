@@ -228,4 +228,61 @@ type Test() =
         [<Test>]
         default this.F13EncodeDirectEmpty () =
             Assert.AreEqual(true, List.isEmpty (encodeDirect []))
+            
+        [<Test>]
+        abstract F14DuplicateEmpty: unit -> unit
+        [<Test>]
+        default this.F14DuplicateEmpty () =
+            Assert.AreEqual([], duplic [])
+        
+        [<Test>]
+        abstract F14DuplicateSingle: unit -> unit
+        [<Test>]
+        default this.F14DuplicateSingle () =
+            Assert.AreEqual(['a'; 'a'], duplic ['a'])            
+        
+        [<Test>]
+        abstract F14DuplicateMany: unit -> unit
+        [<Test>]
+        default this.F14DuplicateMany () =
+            let input = ['a'; 'a'; 'b'; 'b'; 
+                         'c'; 'c'; 'd'; 'd']
+            
+            let expected = ['a'; 'a'; 'a'; 'a';
+                            'b'; 'b'; 'b'; 'b';
+                            'c'; 'c'; 'c'; 'c'; 
+                            'd'; 'd'; 'd'; 'd' ]
+            
+            Assert.AreEqual(expected, duplic input)
+        
+        [<Test>]
+        abstract F15DuplicateEmpty: unit -> unit
+        [<Test>]
+        default this.F15DuplicateEmpty () =
+            Assert.AreEqual(true, List.isEmpty (dupli([], 10)))
+        
+        [<Test>]
+        abstract F15DuplicateTwo: unit -> unit
+        [<Test>]
+        default this.F15DuplicateTwo () =
+            let expected = ['a'; 'a'; 'b'; 'b']
+            
+            Assert.AreEqual(expected, dupli (['a'; 'b'], 2))
+        
+        [<Test>]
+        abstract F15DuplicateMany: unit -> unit
+        [<Test>]
+        default this.F15DuplicateMany () =
+        
+            let expected = ['a'; 'a'; 'a'; 
+                            'b'; 'b'; 'b'; 
+                            'c'; 'c'; 'c']
+            
+            Assert.AreEqual(expected, dupli(['a'; 'b'; 'c'], 3))
+        
+        [<Test>]
+        abstract F15DuplicateSeveralZeroTimes : unit -> unit
+        [<Test>]
+        default this.F15DuplicateSeveralZeroTimes () =
+            Assert.AreEqual(true, List.isEmpty(dupli(['a'; 'b'; 'c';], 0)))
         

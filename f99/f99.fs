@@ -102,3 +102,25 @@ let encodeDirect (input: 'a list) =
     match input with
     | []           -> []
     | head :: tail -> List.rev (iter (List.tail input, (1, List.head input), []))
+
+// P14 (*) Duplicate the elements of a list.
+let duplic input:'a list =
+    let rec iter (input: 'a list, acc: 'a list) =
+        match input with
+        | []           -> acc
+        | head :: tail -> iter(tail, head :: head :: acc)
+
+    List.rev(iter (input, []))
+
+// P15 (**) Duplicate the elements of a list a given number of times.
+let dupli (input:'a list, times: int) =
+    let rec duplicate (item: 'a, times: int, acc: 'a list) =
+        match times with
+        | 0 -> acc
+        | _ -> duplicate (item, (times - 1), item :: acc)
+    
+    match input with
+    | [] -> []
+    | _  -> 
+        List.map (fun item -> duplicate (item, times, [])) input
+        |> List.reduce (@)
