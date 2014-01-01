@@ -124,3 +124,16 @@ let dupli (input:'a list, times: int) =
     | _  -> 
         List.map (fun item -> duplicate (item, times, [])) input
         |> List.reduce (@)
+        
+// P16 (**) Drop every N'th element from a list.
+let drop (input: 'a list, n: int) =
+    let rec iter (input, cur, acc) =
+        match (input, cur) with
+        | ([], _)            -> acc
+        | (__::tail, 1)      -> iter(tail, n, acc)
+        | (head::tail, cur)  -> iter (tail, cur - 1, head :: acc) 
+    
+    match n with
+    | 0 -> []
+    | 1 -> []
+    | _ -> List.rev(iter (input, n, []))

@@ -286,3 +286,19 @@ type Test() =
         default this.F15DuplicateSeveralZeroTimes () =
             Assert.AreEqual(true, List.isEmpty(dupli(['a'; 'b'; 'c';], 0)))
         
+        [<Test>]
+        abstract F16Drop: unit -> unit
+        [<Test>]
+        default this.F16Drop () =
+            Assert.AreEqual(['a'; 'b'; 'd'; 'e'; 'g'; 'h'; 'j'], drop(['a' .. 'j'],3))
+
+        [<Test>]
+        abstract F16DropEmpty: unit -> unit
+        [<Test>]
+        default this.F16DropEmpty () =
+            Assert.AreEqual([], drop([], 3))
+        
+        [<Test>]
+        abstract F16DropEvery: unit -> unit
+        default this.F16DropEvery () =
+            Assert.AreEqual([], drop(['a' .. 'z'], 1))
