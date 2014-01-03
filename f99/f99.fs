@@ -137,3 +137,21 @@ let drop (input: 'a list, n: int) =
     | 0 -> []
     | 1 -> []
     | _ -> List.rev(iter (input, n, []))
+
+// P17 (*) Split a list into two parts; the length of the first part is given
+let split (input:'a list, splitAt: int) =
+    let rec iter(input:'a list, depth, acc) =
+        match input with 
+        | []           -> (List.rev acc, input)
+        | head :: tail -> 
+            match depth = splitAt with
+            | true  -> (List.rev acc, head :: tail)
+            | false -> iter(tail, depth + 1, head :: acc)
+
+    let len         = List.length input
+    let outOfBounds = (splitAt < 0) || (splitAt > len)
+    
+    match outOfBounds with 
+    | true  -> None
+    | false -> Some (iter(input, 0, []))
+    

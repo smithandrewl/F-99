@@ -300,5 +300,56 @@ type Test() =
         
         [<Test>]
         abstract F16DropEvery: unit -> unit
+        [<Test>]
         default this.F16DropEvery () =
-            Assert.AreEqual([], drop(['a' .. 'z'], 1))
+            Assert.AreEqual(true, drop(['a' .. 'z'], 1).IsEmpty)
+        
+        [<Test>]
+        abstract F17SplitEmpty: unit -> unit
+        [<Test>]
+        default this.F17SplitEmpty () = 
+            let actual = split([], 0).Value
+            
+            Assert.AreEqual(true, (fst actual).IsEmpty)
+            Assert.AreEqual(true, (snd actual).IsEmpty)
+        
+        [<Test>]
+        abstract F17SplitOneStart: unit -> unit
+        [<Test>]
+        default this.F17SplitOneStart () =
+            let expected = ([], ['a'])
+            let actual   = split(['a'],0).Value
+            
+            Assert.AreEqual(true, (fst actual).IsEmpty)
+            Assert.AreEqual(snd expected, snd actual) 
+        
+        [<Test>]
+        abstract F17SplitOneEnd: unit -> unit
+        [<Test>]
+        default this.F17SplitOneEnd () =
+            let expected = (['a'], [])
+            let actual   = split(['a'],1).Value
+            
+            Assert.AreEqual(fst   expected, fst actual)
+            Assert.AreEqual(true, (snd actual).IsEmpty)
+            
+        [<Test>]
+        abstract F17SplitTwoMiddle: unit -> unit
+        [<Test>]
+        default this.F17SplitTwoMiddle () =
+            let expected = (['a'], ['b'])
+            let actual   = split(['a'; 'b'], 1).Value
+            
+            Assert.AreEqual(fst expected, fst actual)
+            Assert.AreEqual(snd expected, snd actual)
+        
+        [<Test>]
+        abstract F17SplitFiveAtThree: unit -> unit
+        [<Test>]
+        default this.F17SplitFiveAtThree() =
+            let expected = (['a' .. 'c'], ['d'; 'e'])
+            let actual   = split(['a' .. 'e'], 3).Value
+            
+            Assert.AreEqual(fst expected, fst actual)
+            Assert.AreEqual(snd expected, snd expected)
+       
