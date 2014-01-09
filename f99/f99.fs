@@ -154,4 +154,14 @@ let split (input:'a list, splitAt: int) =
     match outOfBounds with 
     | true  -> None
     | false -> Some (iter(input, 0, []))
+
+//P20 (*) Remove the K'th element from a list.
+let remove_at (lst: 'a list, idx: int) =
+    let rec iter(lst: 'a list, current:int, acc: 'a list) =
+        match (lst, current = idx) with
+        | ([], _)               -> acc
+        | (_ :: tail, true)     -> iter(tail, current + 1, acc)
+        | (head :: tail, false) -> iter(tail, current + 1, head :: acc)
+    
+    List.rev (iter(lst, 0, []))
     

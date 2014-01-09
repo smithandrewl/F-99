@@ -254,5 +254,24 @@ type Test() = class
         
         Assert.AreEqual(fst expected, fst actual)
         Assert.AreEqual(snd expected, snd expected)
+    
+    [<Test>]
+    member self.F20RemoveAtEmptyList() =
+        Assert.AreEqual([], remove_at([], 0))
+        Assert.AreEqual([], remove_at([], 10))
+    
+    [<Test>]
+    member self.F20RemoveAtListOfOne() =
+        Assert.AreEqual(true,  remove_at(['a'], 0).IsEmpty)
+        Assert.AreEqual(['a'], remove_at(['a'], 1))
+        Assert.AreEqual(['a'], remove_at(['a'], 10))
+    
+    [<Test>]
+    member self.F20RemoveAtListOfTwo() =
+        Assert.AreEqual(['b'],           remove_at(['a'; 'b'], 0))
+        Assert.AreEqual(['a'],           remove_at(['a'; 'b'], 1))
+        Assert.AreEqual(['a'; 'b'],      remove_at(['a'; 'b'], 2))
+        Assert.AreEqual(['a'; 'b'],      remove_at(['a'; 'b'], 10))
+        Assert.AreEqual(['a'; 'c'; 'd'], remove_at(['a'; 'b'; 'c'; 'd'], 1))
 end
        
