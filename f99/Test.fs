@@ -273,5 +273,30 @@ type Test() = class
         Assert.AreEqual(['a'; 'b'],      remove_at(['a'; 'b'], 2))
         Assert.AreEqual(['a'; 'b'],      remove_at(['a'; 'b'], 10))
         Assert.AreEqual(['a'; 'c'; 'd'], remove_at(['a'; 'b'; 'c'; 'd'], 1))
+    
+    [<Test>]
+    member self.F22rangeSame() =
+        Assert.AreEqual(Some([10]), range(10, 10))
+    
+    [<Test>]
+    member self.F22rangeInverse() =
+        Assert.AreEqual(None, range(20, 10))
+    
+    [<Test>]
+    member self.F22range0To10() =
+        CollectionAssert.AreEqual([0 .. 10], Option.get(range(0, 10)))
+    
+    [<Test>]
+    member self.F22range5To10() =
+        CollectionAssert.AreEqual([5 .. 10], Option.get(range(5, 10)))
+        
+    [<Test>]
+    member self.F22range5To5() =
+        CollectionAssert.AreEqual([5], Option.get(range(5, 5)))   
+    
+    [<Test>]
+    member self.F22range0To0() =
+        CollectionAssert.AreEqual([0], Option.get(range(0, 0)))
+    
 end
        
