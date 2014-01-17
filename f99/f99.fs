@@ -1,5 +1,7 @@
 module f99
 
+exception InvalidIndex of string
+
 // P01 (*) Find the last element of a list.
 let rec my_last input = 
     match input with 
@@ -166,11 +168,17 @@ let remove_at (lst: 'a list, idx: int) =
     List.rev (iter(lst, 0, []))
     
 //P21 (*) Insert an element at a given position into a list.
-//Example:
-//?­ insert_at(alfa,[a,b,c,d],2,L).
-//L = [a,alfa,b,c,d]
-
-
+let insert_at(item: 'a, lst: 'a list, idx: int) =
+    
+    match (lst, idx) with
+    | (_, idx) when idx < 0                  -> raise(InvalidIndex("idx was less than zero"))
+    | (lst, idx) when idx > List.length(lst) -> raise(InvalidIndex("idx was greater than the length of the list"))
+    | _                                      -> 
+        match split(lst, idx) with
+        | None -> lst
+        | Some((left, right)) -> left @ [item] @ right
+    
+    
 //P22 (*) Create a list containing all integers within a given range.
 //Example:
 //?­ range(4,9,L).
@@ -184,8 +192,6 @@ let range(start: int, stop: int) =
     | (start, stop) when start > stop -> None
     | (start, stop) when start = stop -> Some([stop])
     | (_, _)                          -> Some(List.rev (iter(start, [])))
-    
-     
                 
 // P18 (**) Extract a slice from a list.
 //Given two indices, I and K, the slice is the list containing the elements between the I'th and K'th element of
@@ -268,4 +274,3 @@ let range(start: int, stop: int) =
 // Note that in the above example, the first two lists in the result L have length 4 and 1, both lengths appear
 // just once. The third and forth list have length 3 which appears, there are two list of this length. And finally,
 // the last three lists have length 2. This is the most frequent length.
-    

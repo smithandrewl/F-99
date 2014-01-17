@@ -275,6 +275,43 @@ type Test() = class
         Assert.AreEqual(['a'; 'c'; 'd'], remove_at(['a'; 'b'; 'c'; 'd'], 1))
     
     [<Test>]
+    member self.F21InsertAtEmptyAtZero() =
+        Assert.AreEqual([1], insert_at(1, [], 0))
+    
+    [<Test>]
+    member self.F21InsertAtInvalidIndexTooBig() =
+        try
+            ignore(insert_at(1, [], 1))
+            Assert.Fail()
+        with
+            | InvalidIndex("idx was greater than the length of the list") -> Assert.IsTrue(true)
+            
+    
+    [<Test>]
+    member self.F21InsertAtInvalidIndexLessThanZero() = 
+        try
+            ignore(insert_at(1, [2], -1))
+            Assert.Fail()
+        with
+            | InvalidIndex("idx was less than zero") -> Assert.IsTrue(true)
+    
+    [<Test>]
+    member self.F21InsertAtFront() =
+        Assert.AreEqual(OneToThree, insert_at(1, [2; 3], 0))
+        Assert.AreEqual([2; 3], insert_at(2, [3], 0))
+    
+    [<Test>]
+    member self.F21InsertAtEnd() =
+        Assert.AreEqual(OneToThree, insert_at(3, [1; 2], 2))
+        Assert.AreEqual([3; 4], insert_at(4, [3], 1))
+    
+    [<Test>]
+    member self.F21InsertInMiddle() =
+        Assert.AreEqual(OneToThree, insert_at(2, [1; 3], 1))
+        Assert.AreEqual([1 .. 5], insert_at(3, [1; 2; 4; 5], 2))
+        
+    
+    [<Test>]
     member self.F22rangeSame() =
         Assert.AreEqual(Some([10]), range(10, 10))
     
