@@ -335,5 +335,37 @@ type Test() = class
     member self.F22range0To0() =
         CollectionAssert.AreEqual([0], Option.get(range(0, 0)))
     
+    [<Test>]
+    member self.F18OutOfBoundsRight() =
+        try
+            ignore(slice([0; 1; 2], 2, 3))
+            Assert.Fail()
+        with
+        | InvalidIndex(msg) -> Assert.IsTrue(true)
+        
+    [<Test>]
+    member self.F18StartLessThanZero() =
+        try
+            ignore(slice([1; 2], -2, 0))
+            Assert.Fail()    
+        with
+        | InvalidIndex(msg) -> Assert.IsTrue(true)
+            
+    [<Test>]
+    member self.F18StopLessThanZero() =
+        try
+            ignore(slice([1; 2; 3; 4], -4, -2))
+            Assert.Fail()
+        with
+        | InvalidIndex(msg) -> Assert.IsTrue(true)
+    
+    [<Test>]
+    member self.F18StopEqualToStart() =
+        try
+            Assert.AreEqual([3], slice([1; 2; 3; 4], 2, 2))
+        with
+        | InvalidIndex(msg) -> 
+            printfn "%s" msg
+            Assert.Fail()
 end
        
