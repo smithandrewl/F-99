@@ -356,5 +356,47 @@ type Test() = class
         | InvalidIndex(msg) -> 
             printfn "%s" msg
             Assert.Fail()
+
+    [<Test>]
+    member self.F23RndSelectEmptyOOB() =
+        try
+            rnd_select([], 3)
+            Assert.Fail()
+        with
+        | InvalidIndex(msg) -> Assert.IsTrue(true)
+
+    [<Test>]
+    member self.F23RndSelectEmptyZero() =
+        Assert.AreEqual([], rnd_select([], 0))
+
+    [<Test>]
+    member self.F23RndSelectNotEmptyOOB() =
+        try
+            rnd_select([1; 2; 3], 4)
+            Assert.Fail()
+        with
+        | InvalidIndex(msg) -> Assert.IsTrue(true)
+
+
+    [<Test>]
+    member self.F23RndSelectAll() =
+        CollectionAssert.IsSubsetOf(rnd_select([1; 2; 3; 4], 4), [1; 2; 3; 4])
+
+    [<Test>]
+    member self.F23RndSelectSome1() =
+        CollectionAssert.IsSubsetOf(rnd_select([1; 2; 3; 4], 1), [1; 2; 3; 4])
+
+    [<Test>]
+    member self.F23RndSelectSome2() =
+        CollectionAssert.IsSubsetOf(rnd_select([1; 2; 3; 4], 2), [1; 2; 3; 4])
+
+    [<Test>]
+    member self.F23RndSelectSome3() =
+        CollectionAssert.IsSubsetOf(rnd_select([1; 2; 3; 4], 3), [1; 2; 3; 4])
+
+    [<Test>]
+    member self.F23RndSelectNone() =
+        CollectionAssert.AreEqual([], rnd_select([1; 2; 3; 4], 0))
+
 end
-       
+

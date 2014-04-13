@@ -203,3 +203,18 @@ let range(start: int, stop: int) =
     | (start, stop) when start > stop -> None
     | (start, stop) when start = stop -> Some([stop])
     | (_, _)                          -> Some(List.rev (iter(start, [])))
+
+// P23 (**) Extract a given number of randomly selected elements from a list.
+let rnd_select(lst, num) =
+    let rand = System.Random()
+    let len = List.length lst
+
+    let rec iter(lst, num) =
+        match num with
+        | 0 -> lst
+        | _ -> iter(remove_at(lst, rand.Next(0, len)), num - 1)
+ 
+    match (lst, num) with
+    | (_, 0) -> []
+    | (_, num) when num > (List.length lst) -> raise(InvalidIndex("The list does not contain at least num elements"))
+    | _ -> iter(lst, num)
