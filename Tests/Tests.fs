@@ -1,7 +1,7 @@
 ﻿module Tests
 open System
 open NUnit.Framework
-open f99
+open f99.lists
 
 [<TestFixture>]
 type Test() = class

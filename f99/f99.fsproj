@@ -39,7 +39,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="f99.fs" />
+    <Compile Include="lists.fs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '11.0'">
