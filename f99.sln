@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "f99", "f99\f99.fsproj", "{71A30DE5-E9B4-418A-8A13-D32F61423A83}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "F99", "f99\F99.fsproj", "{71A30DE5-E9B4-418A-8A13-D32F61423A83}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{5B6792E8-4C83-4084-9B87-2E9C3D8D83C3}"
 EndProject

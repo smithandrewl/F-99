@@ -81,8 +81,8 @@
     <Compile Include="Tests.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\f99\f99.fsproj">
-      <Name>f99</Name>
+    <ProjectReference Include="..\f99\F99.fsproj">
+      <Name>F99</Name>
       <Project>{71a30de5-e9b4-418a-8a13-d32f61423a83}</Project>
       <Private>True</Private>
     </ProjectReference>

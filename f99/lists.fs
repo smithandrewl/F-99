@@ -1,6 +1,6 @@
-namespace f99
+namespace F99
 
-module lists  =
+module Lists  =
     exception InvalidIndex    of string
     exception IllegalArgument of string
 
